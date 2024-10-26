@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notes app</title>
+</head>
+<body>
+    <div class="notes-container">
+        <textarea name="notes" id="notes" rows="20" cols="60"></textarea>
+        <button onclick="createNote()">Add</button>
+        <p id="displaynotes"></p>
+
+    </div>
+    <script>
+    let noteBox = document.getElementById('notes')    
+    let noteStore = []
+    function createNote(){
+
+        let noteValue = noteBox.value
+        if(noteValue !== ""){
+            noteStore.push(noteValue)
+            noteBox.value = ""  
+            console.log(noteStore) 
+            showNote() 
+        }
+        else{
+            alert("enter any value")
+        }
+          
+    }
+    function showNote(){
+        let displayNote = document.getElementById('displaynotes')    
+        displayNote.innerText = ""
+        noteStore.forEach(element=>{
+        displayNote.innerHTML += `${element} <button onclick="editNote('${element}')">Edit</button> <button onclick="deleteNote('${element}')">Delete</button><br><br>` 
+        }) 
+    }
+    function editNote(e){
+        noteBox.value = e
+        let index = noteStore.indexOf(e)
+        noteStore.splice(index,1) 
+        console.log(noteStore)   
+    }
+
+    function deleteNote(e){
+        let index = noteStore.indexOf(e)
+        noteStore.splice(index,1)
+        showNote()
+    }
+   
+    
+    </script>
+</body>
+</html>
